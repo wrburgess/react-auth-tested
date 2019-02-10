@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { validateEmail, validatePassword } from '../helpers';
-import { EMAIL, PASSWORD } from '../constants/formFields';
+import React, { useState } from "react";
+import { validateEmail, validatePassword } from "../helpers";
+import { EMAIL, PASSWORD } from "../constants/formFields";
 
 const SignInView = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [emailTouched, setEmailTouched] = useState(false);
-  const [emailError, setEmailError] = useState('');
-  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState("");
+  const [password, setPassword] = useState("");
   const [passwordTouched, setPasswordTouched] = useState(false);
-  const [passwordError, setPasswordError] = useState('');
-  const [formError, setFormError] = useState('');
-  const [loading, setLoading] = useState('');
+  const [passwordError, setPasswordError] = useState("");
+  const [formError] = useState("");
+  const [loading, setLoading] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     setLoading(true);
     setLoading(false);
-  }
+  };
 
   const validateInputValue = (setStateHook, fieldName) => {
     let message = null;
@@ -30,7 +30,7 @@ const SignInView = () => {
     }
 
     setStateHook(message);
-  }
+  };
 
   const isFormValid = () => {
     return (
@@ -38,15 +38,15 @@ const SignInView = () => {
       passwordTouched &&
       validateEmail(email) &&
       validatePassword(password)
-    )
-  }
+    );
+  };
 
   if (loading) {
     return (
       <div>
         <p>Loading!!!</p>
       </div>
-    )
+    );
   }
 
   return (
@@ -62,7 +62,7 @@ const SignInView = () => {
           autoCorrect="false"
           value={email}
           onFocus={() => setEmailTouched(true)}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={e => setEmail(e.target.value)}
           onBlur={() => validateInputValue(setEmailError, EMAIL)}
         />
         {emailError}
@@ -75,7 +75,7 @@ const SignInView = () => {
           autoCorrect="false"
           value={password}
           onFocus={() => setPasswordTouched(true)}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={e => setPassword(e.target.value)}
           onBlur={() => validateInputValue(setPasswordError, PASSWORD)}
         />
         {passwordError}
@@ -90,7 +90,7 @@ const SignInView = () => {
         </button>
       </form>
     </div>
-  )
+  );
 };
 
 export default SignInView;
