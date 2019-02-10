@@ -1,36 +1,36 @@
-import React, { useState } from "react";
-import { validateEmail, validatePassword } from "../helpers";
-import { EMAIL, PASSWORD } from "../constants/formFields";
+import React, { useState } from 'react'
+import { validateEmail, validatePassword } from '../helpers'
+import { EMAIL, PASSWORD } from '../constants/formFields'
 
 const SignInView = () => {
-  const [email, setEmail] = useState("");
-  const [emailTouched, setEmailTouched] = useState(false);
-  const [emailError, setEmailError] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordTouched, setPasswordTouched] = useState(false);
-  const [passwordError, setPasswordError] = useState("");
-  const [formError] = useState("");
-  const [loading, setLoading] = useState("");
+  const [email, setEmail] = useState('')
+  const [emailTouched, setEmailTouched] = useState(false)
+  const [emailError, setEmailError] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordTouched, setPasswordTouched] = useState(false)
+  const [passwordError, setPasswordError] = useState('')
+  const [formError] = useState('')
+  const [loading, setLoading] = useState('')
 
   const handleSubmit = e => {
-    e.preventDefault();
-    setLoading(true);
-    setLoading(false);
-  };
+    e.preventDefault()
+    setLoading(true)
+    setLoading(false)
+  }
 
   const validateInputValue = (setStateHook, fieldName) => {
-    let message = null;
+    let message = null
 
     if (fieldName === EMAIL && !validateEmail(email)) {
-      message = "A valid email address is required.";
+      message = 'A valid email address is required.'
     }
 
     if (fieldName === PASSWORD && !validatePassword(password)) {
-      message = "Passwords need between 10 and 128 characters.";
+      message = 'Passwords need between 10 and 128 characters.'
     }
 
-    setStateHook(message);
-  };
+    setStateHook(message)
+  }
 
   const isFormValid = () => {
     return (
@@ -38,15 +38,15 @@ const SignInView = () => {
       passwordTouched &&
       validateEmail(email) &&
       validatePassword(password)
-    );
-  };
+    )
+  }
 
   if (loading) {
     return (
       <div>
         <p>Loading!!!</p>
       </div>
-    );
+    )
   }
 
   return (
@@ -90,7 +90,7 @@ const SignInView = () => {
         </button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default SignInView;
+export default SignInView

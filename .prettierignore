@@ -1,0 +1,10 @@
+node_modules
+coverage
+dist
+build
+.build
+.vscode
+README.md
+package.json
+package-lock.json
+public/manifest.json
