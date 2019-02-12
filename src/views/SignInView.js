@@ -16,18 +16,15 @@ const SignInView = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    // setLoading(true)
-    console.log('SignInView > handleSubmit > Running!')
+    setLoading(true)
 
     if (userAuthentication.authenticateWithEmailAndPassword(email, password)) {
-      console.log('SignInView > handleSubmit > OnLoginSuccess')
       onLoginSuccess()
     } else {
-      console.log('SignInView > handleSubmit > onLoginFail')
       onLoginFail()
     }
 
-    // setLoading(false)
+    setLoading(false)
   }
 
   const validateInputValue = (setStateHook, fieldName) => {
@@ -49,7 +46,7 @@ const SignInView = () => {
   }
 
   const onLoginFail = () => {
-    setFormError(`There was a login failure`)
+    setFormError(`There was a login failure.`)
   }
 
   const isFormValid = () => {
@@ -83,6 +80,7 @@ const SignInView = () => {
         <input
           data-testid="email-field"
           type="text"
+          id="email"
           name="email"
           autoCapitalize="none"
           autoCorrect="false"
@@ -99,6 +97,7 @@ const SignInView = () => {
         <input
           data-testid="password-field"
           type="password"
+          id="password"
           name="password"
           autoCapitalize="none"
           autoCorrect="false"
