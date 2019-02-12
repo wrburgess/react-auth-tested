@@ -38,15 +38,23 @@ const SignInView = () => {
       message = 'Passwords need between 10 and 128 characters.'
     }
 
+    setFormMessage('')
+    setFormError('')
     setStateHook(message)
   }
 
   const onLoginSuccess = () => {
-    setFormMessage(`You are logged in!`)
+    setEmail('')
+    setPassword('')
+    setFormMessage('You are logged in!')
+    setFormError('')
   }
 
   const onLoginFail = () => {
-    setFormError(`There was a login failure.`)
+    setEmail('')
+    setPassword('')
+    setFormMessage('')
+    setFormError('There was a login failure.')
   }
 
   const isFormValid = () => {
