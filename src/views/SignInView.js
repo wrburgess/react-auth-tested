@@ -1,21 +1,33 @@
 import React, { useState } from 'react'
 import { validateEmail, validatePassword } from '../helpers'
 import { EMAIL, PASSWORD } from '../constants/formFields'
+import userAuthentication from '../services/userAuthentication'
 
 const SignInView = () => {
+  const [formMessage, setFormMessage] = useState('')
+  const [formError, setFormError] = useState('')
   const [email, setEmail] = useState('')
   const [emailTouched, setEmailTouched] = useState(false)
   const [emailError, setEmailError] = useState('')
   const [password, setPassword] = useState('')
   const [passwordTouched, setPasswordTouched] = useState(false)
   const [passwordError, setPasswordError] = useState('')
-  const [formError] = useState('')
   const [loading, setLoading] = useState('')
 
   const handleSubmit = e => {
     e.preventDefault()
-    setLoading(true)
-    setLoading(false)
+    // setLoading(true)
+    console.log('SignInView > handleSubmit > Running!')
+
+    if (userAuthentication.authenticateWithEmailAndPassword(email, password)) {
+      console.log('SignInView > handleSubmit > OnLoginSuccess')
+      onLoginSuccess()
+    } else {
+      console.log('SignInView > handleSubmit > onLoginFail')
+      onLoginFail()
+    }
+
+    // setLoading(false)
   }
 
   const validateInputValue = (setStateHook, fieldName) => {
@@ -30,6 +42,14 @@ const SignInView = () => {
     }
 
     setStateHook(message)
+  }
+
+  const onLoginSuccess = () => {
+    setFormMessage(`You are logged in!`)
+  }
+
+  const onLoginFail = () => {
+    setFormError(`There was a login failure`)
   }
 
   const isFormValid = () => {
@@ -51,11 +71,17 @@ const SignInView = () => {
 
   return (
     <div>
-      <h1>Sign In</h1>
-      <form autoComplete="off">
-        {formError}
+      <h1 data-testid="page-title">Sign In</h1>
+      <form autoComplete="off" data-testid="page-form">
+        {formMessage ? (
+          <div data-testid="form-message">{formMessage}</div>
+        ) : null}
+
+        {formError ? <div data-testid="form-error">{formError}</div> : null}
+
         <label htmlFor="email">Email</label>
         <input
+          data-testid="email-field"
           type="text"
           name="email"
           autoCapitalize="none"
@@ -65,10 +91,13 @@ const SignInView = () => {
           onChange={e => setEmail(e.target.value)}
           onBlur={() => validateInputValue(setEmailError, EMAIL)}
         />
-        {emailError}
+        {emailError ? (
+          <span data-testid="email-error">{emailError}</span>
+        ) : null}
 
         <label htmlFor="password">Password</label>
         <input
+          data-testid="password-field"
           type="password"
           name="password"
           autoCapitalize="none"
@@ -78,12 +107,15 @@ const SignInView = () => {
           onChange={e => setPassword(e.target.value)}
           onBlur={() => validateInputValue(setPasswordError, PASSWORD)}
         />
-        {passwordError}
+        {passwordError ? (
+          <span data-testid="password-error">{passwordError}</span>
+        ) : null}
 
         <button
+          data-testid="submit-button"
           value="Log In"
           type="submit"
-          disabled={!isFormValid() || loading}
+          disabled={!isFormValid() || loading || false}
           onClick={handleSubmit}
         >
           Submit
