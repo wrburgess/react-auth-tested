@@ -122,7 +122,7 @@ const SignInView = () => {
           data-testid="submit-button"
           value="Log In"
           type="submit"
-          disabled={!isFormValid() || loading || false}
+          disabled={!isFormValid() || Boolean(loading)}
           onClick={handleSubmit}
         >
           Submit

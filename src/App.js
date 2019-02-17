@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
-import SignInView from './SignInView'
+import SignInView from './views/SignInView'
 
 class App extends Component {
   render() {
